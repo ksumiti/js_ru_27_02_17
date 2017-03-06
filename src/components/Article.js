@@ -16,6 +16,7 @@ class Article extends Component {
 		const {isOpen} = this.state
 		const body = isOpen ? <section>{article.text}</section> : null
 		const {comments} = article
+		//Я б эту проверку спрятал в CommentList
 		const commentsBlock = comments && isOpen ? <CommentList comments={comments}/> : null
 		return (
 				<div>
