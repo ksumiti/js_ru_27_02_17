@@ -26,4 +26,5 @@ Article.propTypes = {
 	}).isRequired
 }
 
+//нет, зачем, мы же наоборот от него избавились. Задача была создать декоратор для аккордеона и использовать в ArticleList
 export default toggleOpen(Article)
