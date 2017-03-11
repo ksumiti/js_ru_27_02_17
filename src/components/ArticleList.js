@@ -1,21 +1,18 @@
 import React, {PropTypes, Component} from 'react'
 import Article from './Article'
+import AccordionDecorator from '../decorators/accordion'
 
-export default class ArticleList extends Component {
+
+class ArticleList extends Component {
 	render() {
-		const {articles} = this.props
+		const {articles, isOpen, toggleOpenItem} = this.props
 
 		const articleComponents = articles.map(article => <li key={article.id}>
-			<Article article={article}/>
+			<Article article={article}
+					 isOpen={isOpen(article.id)}
+					 toggleOpen={toggleOpenItem(article.id)}
+			/>
 		</li>)
-
-		if (!articles.length) {
-			return <div>
-				<h3>
-					No comments yet
-				</h3>
-			</div>
-		}
 
 		return (
 				<ul>
@@ -24,6 +21,8 @@ export default class ArticleList extends Component {
 		)
 	}
 }
+
+export default AccordionDecorator(ArticleList)
 
 ArticleList.propTypes = {
 	articles: PropTypes.array.isRequired
