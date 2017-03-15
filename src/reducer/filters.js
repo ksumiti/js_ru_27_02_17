@@ -6,6 +6,7 @@ export default (state = {from: null, to: null, selected: null}, action) => {
 	switch (type) {
 		case FILTER_TEXT_ARTICLE:
 			const {selected} = payload
+	            //а здесь лучше просто id хранить, а не все что в Select приходит
 			return Object.assign({}, state, {
 				selected: selected
 			})
