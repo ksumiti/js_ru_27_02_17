@@ -14,7 +14,7 @@ class ArticleList extends Component {
 		const from_d = new Date(from).getTime()
 		const to_d = new Date(to).getTime()
 
-
+        //ок, но еще лучше делать фильтрацию в коннекте
 		if (selected && selected.length || from || to) {
 			articles = articles.filter(article => {
 				const d = new Date(article.date).getTime();
