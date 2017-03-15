@@ -1,3 +1,4 @@
+import {DateUtils} from 'react-day-picker'
 import {INCREMENT, DELETE_ARTICLE, FILTER_TEXT_ARTICLE, FILTER_DATE_ARTICLE} from '../constants'
 
 export function increment() {
@@ -15,16 +16,17 @@ export function deleteArticle(id) {
 	}
 }
 
-export function filterTextArticle(text) {
+export function filterTextArticle(selected) {
 	return {
 		type: FILTER_TEXT_ARTICLE,
-		payload: {text}
+		payload: {selected}
 	}
 }
 
-export function filterDateArticle(from, to) {
+export function filterDateArticle(day) {
+	const range = DateUtils.addDayToRange(day, window.store.getState().filters)
 	return {
-		type: FILTER_TEXT_ARTICLE,
-		payload: {from, to}
+		type: FILTER_DATE_ARTICLE,
+		payload: range
 	}
 }

@@ -1,16 +1,21 @@
-import {articles} from '../fixtures'
 import {FILTER_TEXT_ARTICLE, FILTER_DATE_ARTICLE} from '../constants'
 
-export default (state = articles, action) => {
+export default (state = {from: null, to: null, selected: null}, action) => {
 	const {type, payload} = action
-	console.log('action', action);
 
 	switch (type) {
 		case FILTER_TEXT_ARTICLE:
-			return state.filter(article => article.text.indexOf(payload.text) !== -1)
+			const {selected} = payload
+			return Object.assign({}, state, {
+				selected: selected
+			})
 
 		case FILTER_DATE_ARTICLE:
-			return state.filter(article => payload.from <= article.date && article.date >= payload.to)
+			const {from, to} = payload
+			return Object.assign({}, state, {
+				from: from || null,
+				to: to || null,
+			})
 	}
 
 	return state
