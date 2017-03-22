@@ -3,7 +3,7 @@ import {findDOMNode} from 'react-dom'
 import CommentList from '../CommentList'
 import CSSTransition from 'react-addons-css-transition-group'
 import {connect} from 'react-redux'
-import {deleteArticle} from '../../AC'
+import {deleteArticle, addComment} from '../../AC'
 import './style.css'
 
 class Article extends Component {
@@ -18,7 +18,7 @@ class Article extends Component {
         const body = isOpen
             ? <section>
                 {article.text}
-                <CommentList comments={article.comments} ref={this.getCommentList}/>
+                <CommentList comments={article.comments} article={article.id} ref={this.getCommentList} onSubmitCommentForm = {this.onSubmitCommentForm}/>
             </section>
             : null
         return (
@@ -35,6 +35,15 @@ class Article extends Component {
             </div>
         )
     }
+
+	onSubmitCommentForm = comment => {
+		const {article, addComment} = this.props
+		addComment({
+			article: article.id,
+			text: comment.text,
+			user: comment.user
+		});
+	}
 
     handleDelete = ev => {
         ev.preventDefault()
@@ -62,4 +71,4 @@ Article.propTypes = {
     toggleOpen: PropTypes.func
 }
 
-export default connect(null, { deleteArticle })(Article)
+export default connect(null, { deleteArticle, addComment })(Article)
