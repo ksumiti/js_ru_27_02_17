@@ -66,6 +66,7 @@ Article.propTypes = {
 }
 
 function mapStateToProps(state, {match}) {
+        //в этом нет смысла, ты каждый раз пересоздаешь селектор
 	const findArticleSelector = createFindArticleSelector()
 	return {
 		article: findArticleSelector(state, match.params)
