@@ -117,7 +117,7 @@ export function loadCommentsByPage(page) {
 		}, 1000)
 	}
 }
-
+//ок, но я бы не делал дополнительного вызова
 export function loadTotalComments() {
 	return (dispatch) => {
 		setTimeout(() => {
