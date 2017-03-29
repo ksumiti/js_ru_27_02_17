@@ -1,4 +1,4 @@
-import {ADD_COMMENT, LOAD_ARTICLE_COMMENTS, SUCCESS, LOAD_COMMENTS_BY_PAGE, START, FAIL} from '../constants'
+import {ADD_COMMENT, LOAD_ARTICLE_COMMENTS, SUCCESS, LOAD_COMMENTS_BY_PAGE, START, FAIL, LOAD_TOTAL_COMMENTS} from '../constants'
 import {arrToMap} from './utils'
 import {Record, Map} from 'immutable'
 
@@ -31,13 +31,14 @@ export default (comments = new DefaultReducerState(), action) => {
 			return comments.setIn(['pages', payload.page, 'loading'], true)
 					.setIn(['pages', payload.page, 'loaded'], false);
 
+		case LOAD_TOTAL_COMMENTS + SUCCESS:
+			return comments.setIn(['pages', 'total'], payload.response.total);
+
 		case LOAD_COMMENTS_BY_PAGE + SUCCESS:
-			console.log(LOAD_COMMENTS_BY_PAGE + SUCCESS, payload);
 			const ids = payload.response.records.map(r => r.id);
 			return comments.mergeIn(['entities'], arrToMap(payload.response.records, CommentModel))
 					.setIn(['pages', payload.page, 'loading'], false)
 					.setIn(['pages', payload.page, 'loaded'], true)
-					.setIn(['pages', 'total'], payload.response.total)
 					.setIn(['pages', payload.page, 'list'], ids);
 
 		case LOAD_COMMENTS_BY_PAGE + FAIL:

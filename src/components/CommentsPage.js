@@ -2,15 +2,15 @@ import React, {Component, PropTypes} from 'react'
 import CommentList from './CommentListByPage'
 import Menu, {MenuItem} from './Menu/index'
 import {HashRouter as Router, Route, Switch} from 'react-router-dom'
-import {loadCommentsByPage} from '../AC'
+import {loadTotalComments} from '../AC'
 import {connect} from 'react-redux'
 
 
 class CommentsPage extends Component {
 	static propTypes = {};
 
-	componentWillReceiveProps({total, loadCommentsByPage}) {
-		if (!total) loadCommentsByPage(1)
+	componentWillReceiveProps({total, loadTotalComments}) {
+		if (!total) loadTotalComments()
 	}
 
 	render() {
@@ -51,4 +51,4 @@ const mapStateToProps = (state) => {
 	}
 }
 
-export default connect(mapStateToProps, {loadCommentsByPage})(CommentsPage)
+export default connect(mapStateToProps, {loadTotalComments})(CommentsPage)

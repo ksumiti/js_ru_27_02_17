@@ -1,6 +1,6 @@
 import {
 		INCREMENT, DELETE_ARTICLE, CHANGE_DATE_RANGE, CHANGE_SELECTION, ADD_COMMENT,
-		LOAD_ALL_ARTICLES, LOAD_ARTICLE_BY_ID, LOAD_ARTICLE_COMMENTS, START, SUCCESS, FAIL, LOAD_COMMENTS_BY_PAGE
+		LOAD_ALL_ARTICLES, LOAD_ARTICLE_BY_ID, LOAD_ARTICLE_COMMENTS, START, SUCCESS, FAIL, LOAD_COMMENTS_BY_PAGE, LOAD_TOTAL_COMMENTS
 } from '../constants'
 import $ from 'jquery'
 
@@ -113,6 +113,22 @@ export function loadCommentsByPage(page) {
 					.fail(error => dispatch({
 						type: LOAD_COMMENTS_BY_PAGE + FAIL,
 						payload: {error, page}
+					}))
+		}, 1000)
+	}
+}
+
+export function loadTotalComments() {
+	return (dispatch) => {
+		setTimeout(() => {
+			$.get(`/api/comment?limit=1&offset=1`)
+					.done(response => dispatch({
+						type: LOAD_TOTAL_COMMENTS + SUCCESS,
+						payload: {response}
+					}))
+					.fail(error => dispatch({
+						type: LOAD_TOTAL_COMMENTS + FAIL,
+						payload: {error}
 					}))
 		}, 1000)
 	}
